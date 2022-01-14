@@ -8,6 +8,8 @@ Use Keras to perform symbolic regression.
 
     python second_test.py
     
+    python third_test.py
+    
     
     
 Similar projects:
