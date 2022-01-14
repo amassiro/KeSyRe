@@ -6,6 +6,8 @@ Use Keras to perform symbolic regression.
 
     python first_test.py
 
+    python second_test.py
+    
     
     
 Similar projects:
