@@ -180,7 +180,19 @@ hidden2 = MyFunctionSin(
                )(inputs)
 
 
-concatenated_layer = Concatenate(axis=1)([hidden1, hidden2])
+#
+# a possible thirs sin to be added?
+#
+
+hidden3 = MyFunctionSin(
+               beta = 100.1, 
+               alpha = 0.0, 
+               trainable = True,
+               #kernel_constraint = MinMaxNorm(min_value=10.0, max_value=30.0)
+               )(inputs)
+
+
+concatenated_layer = Concatenate(axis=1)([hidden1, hidden2, hidden3])
 
 #model.add(MyFunctionSin(beta=1.0, trainable=True))
 
