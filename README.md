@@ -10,7 +10,11 @@ Use Keras to perform symbolic regression.
     
     python third_test.py
     
+
     
+Now with class
+
+    python test/test_kesyre.py
     
 Similar projects:
 
