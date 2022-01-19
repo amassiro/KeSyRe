@@ -5,7 +5,7 @@
 #
 
 
-class classKeSyre():
+class classKeSyre:
 
 
     def __init__(self):

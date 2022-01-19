@@ -2,11 +2,12 @@
 import sys
 sys.path.append(".")
 sys.path.append("../")
-#sys.path.append("Core")
+sys.path.append("Core")
+sys.path.append("../Core")
 
 
 from Core.KeSyRe import classKeSyRe
-from Core import KeSyRe
+#from Core import KeSyRe
 #from KeSyRe import classKeSyRe
 
 
