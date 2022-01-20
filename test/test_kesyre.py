@@ -74,9 +74,6 @@ if __name__ == '__main__':
   X_validation = x_axis_validation
   Y_validation = f(x_axis_validation)
   
-  #print ("X_train = ", X_train)
-  #print ("Y_train = ", Y_train)
-  
   
   history = myKeSyRe._model.fit(
                        X_train,
