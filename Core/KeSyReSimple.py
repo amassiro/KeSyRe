@@ -16,7 +16,7 @@ from keras.layers import Layer
 from keras.optimizers  import Adam
 
 
-class classKeSyRe:
+class classKeSyReSimple:
 
 
     def __init__(self):
@@ -34,7 +34,7 @@ class classKeSyRe:
     def Print(self):
     
       print ("-------------------")
-      print ("KeSyRe is made of: ")
+      print ("KeSyReSimple is made of: ")
       if self._inputs_dimension is not None :
         print (" inputs dimension = ", self._inputs_dimension)
       if self._additive_functions is not None :
@@ -295,31 +295,6 @@ class classKeSyRe:
       
 
 
-
-
-#
-# https://github.com/keras-team/keras/issues/890
-# 
-
-def crop(dimension, start, end):
-    # Crops (or slices) a Tensor on a given dimension from start to end
-    # example : to crop tensor x[:, :, 5:10]
-    # call slice(2, 5, 10) as you want to crop on the second dimension
-    def func(x):
-        if dimension == 0:
-            return x[start: end]
-        if dimension == 1:
-            return x[:, start: end]
-        if dimension == 2:
-            return x[:, :, start: end]
-        if dimension == 3:
-            return x[:, :, :, start: end]
-        if dimension == 4:
-            return x[:, :, :, :, start: end]
-    return Lambda(func)
-  
-  
-  
 
 
 #------------------------------------------------------------------------------------
