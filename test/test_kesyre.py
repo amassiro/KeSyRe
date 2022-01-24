@@ -6,9 +6,9 @@ sys.path.append("Core")
 sys.path.append("../Core")
 
 
-from Core.KeSyRe import classKeSyRe
-#from Core import KeSyRe
-#from KeSyRe import classKeSyRe
+from Core.KeSyReSimple import classKeSyReSimple
+#from Core import KeSyReSimple
+#from KeSyReSimple import classKeSyReSimple
 
 
 
@@ -30,33 +30,33 @@ def f(t):
 
 if __name__ == '__main__':
   
-  myKeSyRe = classKeSyRe()
+  myKeSyReSimple = classKeSyReSimple()
 
-  myKeSyRe.defineAdditiveFunctions(["sin"], "first")
+  myKeSyReSimple.defineAdditiveFunctions(["sin"], "first")
 
-  #myKeSyRe.defineNestedFunctions(["exp"], "first")
+  #myKeSyReSimple.defineNestedFunctions(["exp"], "first")
 
-  myKeSyRe.defineAdditiveFunctions(["exp"], "second")
+  myKeSyReSimple.defineAdditiveFunctions(["exp"], "second")
 
-  myKeSyRe.defineMultiply(["first", "second"])
-
-
-  myKeSyRe.setInputsDimension(1)
+  myKeSyReSimple.defineMultiply(["first", "second"])
 
 
-  myKeSyRe.Print()
+  myKeSyReSimple.setInputsDimension(1)
+
+
+  myKeSyReSimple.Print()
   
 
-  myKeSyRe.createModel()
+  myKeSyReSimple.createModel()
   
   
-  myKeSyRe.Print()
+  myKeSyReSimple.Print()
   
   
   print ("main: test with a simple function")
 
 
-  myKeSyRe.compileModel()
+  myKeSyReSimple.compileModel()
 
   
   
@@ -75,7 +75,7 @@ if __name__ == '__main__':
   Y_validation = f(x_axis_validation)
   
   
-  history = myKeSyRe._model.fit(
+  history = myKeSyReSimple._model.fit(
                        X_train,
                        Y_train,
                        validation_data = (X_validation,Y_validation),
@@ -88,10 +88,10 @@ if __name__ == '__main__':
   
 
 
-  myKeSyRe.PrintFormula()
+  myKeSyReSimple.PrintFormula()
 
  
-  Y_predicted_validation = myKeSyRe._model.predict(X_validation)
+  Y_predicted_validation = myKeSyReSimple._model.predict(X_validation)
   
   
   

@@ -22,6 +22,32 @@ class classKeSyRe:
     def __init__(self):
       
       print ("constructor")
+
+#
+#     x     layer-multiplication     layer-sum
+#     x
+#     x     layer-division           layer-sum
+#     x
+#     x     layer-division           layer-multiplication     layer-sum
+#     x
+#
+
+
+#
+#    Additive --> use a dense with linear activation function
+#
+
+#  e.g.
+#     A*B + C*D     
+#     (A+B)*C   ---> it's associative, it's the same!
+#     A/B + C/D  
+#     A/B*C + A/B*D + A/C*D + ...
+#
+  
+  
+      self._layer_sums_inputs = None
+      self._layer_product_inputs = None
+
       
       self._additive_functions = {}
       self._nested_functions = {}
@@ -320,305 +346,3 @@ def crop(dimension, start, end):
   
   
   
-
-
-#------------------------------------------------------------------------------------
-      
-#     
-# https://keras.rstudio.com/articles/backend.html
-#
-
-#------------------------------------------------------------------------------------
-
-
-def myFunctionSin(x, beta=1.0, alpha=0.0):
-   return K.sin(beta * x - alpha)
-
- 
-
-#
-# https://keras.io/api/layers/base_layer/
-#
-   
-   
-class MyFunctionSin(Layer):
-
-    def __init__(self, beta=1.0, alpha=0.0, trainable=False, **kwargs):
-        super(MyFunctionSin, self).__init__(**kwargs)
-        self.supports_masking = True
-        self.beta = beta
-        self.alpha = alpha
-        self.trainable = trainable
-        self.__name__ = 'MyFunzionissima'
-
-
-    def build(self, input_shape):
-        self.beta_factor = K.variable(self.beta,
-                                      dtype=K.floatx(),
-                                      name='beta_factor')
-        self.alpha_factor = K.variable(self.alpha,
-                                      dtype=K.floatx(),
-                                      name='alpha_factor')
-
-        if self.trainable:
-            self._trainable_weights.append(self.beta_factor)
-            self._trainable_weights.append(self.alpha_factor)
-
-        super(MyFunctionSin, self).build(input_shape)
-
-
-    def call(self, inputs, mask=None):
-        return myFunctionSin(inputs, self.beta_factor, self.alpha_factor)
-
-
-    def get_config(self):
-        config = {
-                  'beta' : self.get_weights()[0] if self.trainable else self.beta,
-                  'alpha': self.get_weights()[1] if self.trainable else self.alpha,
-                  'trainable': self.trainable
-                  }
-        base_config = super(MyFunctionSin, self).get_config()
-        return dict(list(base_config.items()) + list(config.items()))
-
-
-    def compute_output_shape(self, input_shape):
-        return input_shape
-
-
-
-#------------------------------------------------------------------------------------
-
-
-def myFunctionCos(x, beta=1.0, alpha=0.0):
-   return K.cos(beta * x - alpha)
-
- 
-
-#
-# https://keras.io/api/layers/base_layer/
-#
-   
-   
-class MyFunctionCos(Layer):
-
-    def __init__(self, beta=1.0, alpha=0.0, trainable=False, **kwargs):
-        super(MyFunctionCos, self).__init__(**kwargs)
-        self.supports_masking = True
-        self.beta = beta
-        self.alpha = alpha
-        self.trainable = trainable
-        self.__name__ = 'MyFunzionissima'
-
-
-    def build(self, input_shape):
-        self.beta_factor = K.variable(self.beta,
-                                      dtype=K.floatx(),
-                                      name='beta_factor')
-        self.alpha_factor = K.variable(self.alpha,
-                                      dtype=K.floatx(),
-                                      name='alpha_factor')
-
-        if self.trainable:
-            self._trainable_weights.append(self.beta_factor)
-            self._trainable_weights.append(self.alpha_factor)
-
-        super(MyFunctionCos, self).build(input_shape)
-
-
-    def call(self, inputs, mask=None):
-        return myFunctionCos(inputs, self.beta_factor, self.alpha_factor)
-
-
-    def get_config(self):
-        config = {
-                  'beta' : self.get_weights()[0] if self.trainable else self.beta,
-                  'alpha': self.get_weights()[1] if self.trainable else self.alpha,
-                  'trainable': self.trainable
-                  }
-        base_config = super(MyFunctionCos, self).get_config()
-        return dict(list(base_config.items()) + list(config.items()))
-
-
-    def compute_output_shape(self, input_shape):
-        return input_shape
-
-
-
-#------------------------------------------------------------------------------------
-
-def myFunctionExp(x, alpha=0.0):
-    return K.exp(alpha * x)
-
-class MyFunctionExp(Layer):
-
-    def __init__(self, alpha=0.0, trainable=False, **kwargs):
-        super(MyFunctionExp, self).__init__(**kwargs)
-        self.supports_masking = True
-        self.alpha = alpha
-        self.trainable = trainable
-        self.__name__ = 'MyFunzionissimaExp'
-
-
-    def build(self, input_shape):
-        self.alpha_factor = K.variable(self.alpha,
-                                      dtype=K.floatx(),
-                                      name='alpha_factor')
-
-        if self.trainable:
-            self._trainable_weights.append(self.alpha_factor)
-
-        super(MyFunctionExp, self).build(input_shape)
-
-
-    def call(self, inputs, mask=None):
-        return myFunctionExp(inputs, self.alpha_factor)
-
-
-    def get_config(self):
-        config = {
-                  'alpha': self.get_weights()[0] if self.trainable else self.alpha,
-                  'trainable': self.trainable
-                  }
-        base_config = super(MyFunctionExp, self).get_config()
-        return dict(list(base_config.items()) + list(config.items()))
-
-
-    def compute_output_shape(self, input_shape):
-        return input_shape
-   
-        
-         
-
-
-#------------------------------------------------------------------------------------
-
-def myFunctionLog(x, alpha=0.0):
-    return K.log(alpha * x)
-
-class MyFunctionLog(Layer):
-
-    def __init__(self, alpha=0.0, trainable=False, **kwargs):
-        super(MyFunctionLog, self).__init__(**kwargs)
-        self.supports_masking = True
-        self.alpha = alpha
-        self.trainable = trainable
-        self.__name__ = 'MyFunzionissimaLog'
-
-
-    def build(self, input_shape):
-        self.alpha_factor = K.variable(self.alpha,
-                                      dtype=K.floatx(),
-                                      name='alpha_factor')
-
-        if self.trainable:
-            self._trainable_weights.append(self.alpha_factor)
-
-        super(MyFunctionLog, self).build(input_shape)
-
-
-    def call(self, inputs, mask=None):
-        return myFunctionLog(inputs, self.alpha_factor)
-
-
-    def get_config(self):
-        config = {
-                  'alpha': self.get_weights()[0] if self.trainable else self.alpha,
-                  'trainable': self.trainable
-                  }
-        base_config = super(MyFunctionLog, self).get_config()
-        return dict(list(base_config.items()) + list(config.items()))
-
-
-    def compute_output_shape(self, input_shape):
-        return input_shape
-   
-       
-
-#------------------------------------------------------------------------------------
-
-def myFunctionPow(x, alpha=0.0):
-    return K.pow(x, alpha)
-
-class MyFunctionPow(Layer):
-
-    def __init__(self, alpha=0.0, trainable=False, **kwargs):
-        super(MyFunctionPow, self).__init__(**kwargs)
-        self.supports_masking = True
-        self.alpha = alpha
-        self.trainable = trainable
-        self.__name__ = 'MyFunzionissimaPow'
-
-
-    def build(self, input_shape):
-        self.alpha_factor = K.variable(self.alpha,
-                                      dtype=K.floatx(),
-                                      name='alpha_factor')
-
-        if self.trainable:
-            self._trainable_weights.append(self.alpha_factor)
-
-        super(MyFunctionPow, self).build(input_shape)
-
-
-    def call(self, inputs, mask=None):
-        return myFunctionPow(inputs, self.alpha_factor)
-
-
-    def get_config(self):
-        config = {
-                  'alpha': self.get_weights()[0] if self.trainable else self.alpha,
-                  'trainable': self.trainable
-                  }
-        base_config = super(MyFunctionPow, self).get_config()
-        return dict(list(base_config.items()) + list(config.items()))
-
-
-    def compute_output_shape(self, input_shape):
-        return input_shape
-   
-       
-
-#------------------------------------------------------------------------------------
-
-def myFunctionSqrt(x, alpha=0.0):
-    return K.sqrt(alpha * x)
-
-class MyFunctionSqrt(Layer):
-
-    def __init__(self, alpha=0.0, trainable=False, **kwargs):
-        super(MyFunctionSqrt, self).__init__(**kwargs)
-        self.supports_masking = True
-        self.alpha = alpha
-        self.trainable = trainable
-        self.__name__ = 'MyFunzionissimaSqrt'
-
-
-    def build(self, input_shape):
-        self.alpha_factor = K.variable(self.alpha,
-                                      dtype=K.floatx(),
-                                      name='alpha_factor')
-
-        if self.trainable:
-            self._trainable_weights.append(self.alpha_factor)
-
-        super(MyFunctionSqrt, self).build(input_shape)
-
-
-    def call(self, inputs, mask=None):
-        return myFunctionSqrt(inputs, self.alpha_factor)
-
-
-    def get_config(self):
-        config = {
-                  'alpha': self.get_weights()[0] if self.trainable else self.alpha,
-                  'trainable': self.trainable
-                  }
-        base_config = super(MyFunctionSqrt, self).get_config()
-        return dict(list(base_config.items()) + list(config.items()))
-
-
-    def compute_output_shape(self, input_shape):
-        return input_shape
-   
-       
-         

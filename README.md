@@ -16,6 +16,9 @@ Now with class
 
     python test/test_kesyre.py
     
+    python test/test_kesyre_multiple_inputs.py
+    
+    
 Similar projects:
 
     https://github.com/MilesCranmer/PySR
