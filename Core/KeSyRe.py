@@ -54,8 +54,7 @@ class classKeSyRe:
       self._inputs_dimension = None
       self._multiplicative_branches = None
       self._model = None
-      
-      
+         
       
     def Print(self):
     
